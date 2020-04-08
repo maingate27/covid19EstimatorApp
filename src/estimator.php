@@ -27,7 +27,5 @@ function covid19ImpactEstimator($data)
   
   $extract['severeImpact']['currentlyInfected']=$arr['reportedCases'] * 50;
   $extract['severeImpact']['infectionsByRequestedTime']=$extract['severeImpact']['currentlyInfected'] * 512;
-  
-  
   return $result;
 }
