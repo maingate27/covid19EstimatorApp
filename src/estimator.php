@@ -1,24 +1,41 @@
 <?php
 
-$numofDays=0;
+
 function getInfectionsByRequestedTime($type, $duration, $currentlyInfected)
 {
     $days = $duration; // assume the type is days
     switch ($type) {
         case 'weeks':
             $days = $duration * 7;
-            $numofDays=$days;
             break;
         case 'months':
             $days = $duration * 7 * 30;
             $days = $duration * 30;
-            $numofDays=$days;
             break;
     }
     $setOfThreeDays = floor($days / 3);
     $infectionsByRequestedTime = $currentlyInfected * pow(2, $setOfThreeDays);
     return $infectionsByRequestedTime;
 }
+
+function getNumofDays($type,$duration){
+
+    $days = $duration; // assume the type is days
+    switch ($type) {
+        case 'weeks':
+            $days = $duration * 7;
+     
+            break;
+        case 'months':
+            $days = $duration * 7 * 30;
+            $days = $duration * 30;
+            break;
+    }
+    
+    return $days;
+
+}
+
 
 function getSevereImpact($data)
 {
@@ -35,7 +52,7 @@ function getSevereImpact($data)
 
     $severeImpact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $severeImpact['infectionsByRequestedTime']);
 
-    $severeImpact['dollarsInFlight']=$severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numofDays;
+    $severeImpact['dollarsInFlight']=$severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * getNumofDays($data['periodType'], $data['timeToElapse']);
 
     
     return $severeImpact;
@@ -55,7 +72,7 @@ $impact['casesForICUByRequestedTime'] = intval( 0.05 * $impact['infectionsByRequ
 $impact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $impact['infectionsByRequestedTime']);
 
 
-$impact['dollarsInFlight']=$impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numofDays;
+$impact['dollarsInFlight']=$impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * getNumofDays($data['periodType'], $data['timeToElapse']);
 
     return $impact;
 }
