@@ -42,7 +42,7 @@ function getImpact($data)
     $impact['infectionsByRequestedTime'] = getInfectionsByRequestedTime($data['periodType'], $data['timeToElapse'], $impact['currentlyInfected']);
   
   //challenge 2
-    $impact['severeCasesByRequestedTime'] = floor(0.15 * $severeImpact['infectionsByRequestedTime']);
+    $impact['severeCasesByRequestedTime'] = floor(0.15 * $impact['infectionsByRequestedTime']);
     $impact['hospitalBedsByRequestedTime'] = $data['totalHospitalBeds'] - $impact['severeCasesByRequestedTime'];
     $impact['hospitalBedsByRequestedTime'] = (0.35 * $data['totalHospitalBeds']) - $impact['severeCasesByRequestedTime'];
 // challenge 3
