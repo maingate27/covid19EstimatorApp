@@ -1,25 +1,37 @@
 <?php
 
 
-function getImpact($data)
+function getInfectionsByRequestedTime($type, $duration, $currentlyInfected)
 {
-    $impact = new stdClass();
-    $impact->currentlyInfected = $reportedCases * 10;
-    $impact->infectionsByRequestedTime = getInfectionsByRequestedTime($periodType, $timeToElapse, $impact->currentlyInfected);
-    $impact->currentlyInfected = $data->reportedCases * 10;
-    $impact->infectionsByRequestedTime = getInfectionsByRequestedTime($data->periodType, $data->timeToElapse, $impact->currentlyInfected);
-    return $impact;
+    $days = $duration; // assume the type is days
+    switch ($type) {
+        case 'weeks':
+            $days = $duration * 7;
+            break;
+        case 'months':
+            $days = $duration * 7 * 30;
+            $days = $duration * 30;
+            break;
+    }
+    $setOfThreeDays = floor($days / 3);
+    $infectionsByRequestedTime = $currentlyInfected * pow(2, $setOfThreeDays);
+    return $infectionsByRequestedTime;
 }
 
 function getSevereImpact($data)
 {
-    $severeImpact = new stdClass();
-    $severeImpact->currentlyInfected = $reportedCases * 50;
-    $severeImpact->infectionsByRequestedTime = getInfectionsByRequestedTime($periodType, $timeToElapse, $severeImpact->currentlyInfected);
-    $severeImpact->currentlyInfected = $data->reportedCases * 50;
-    $severeImpact->infectionsByRequestedTime = getInfectionsByRequestedTime($data->periodType, $data->timeToElapse, $severeImpact->currentlyInfected);
+    $severeImpact = [];
+    $severeImpact['currentlyInfected'] = $data['reportedCases'] * 50;
+    $severeImpact['infectionsByRequestedTime'] = getInfectionsByRequestedTime($data['periodType'], $data['timeToElapse'], $severeImpact['currentlyInfected']);
     return $severeImpact;
-
+}
+function getImpact($data)
+{
+    $impact = [];
+    $impact['currentlyInfected'] = $data['reportedCases'] * 10;
+    $impact['infectionsByRequestedTime'] = getInfectionsByRequestedTime($data['periodType'], $data['timeToElapse'], $impact['currentlyInfected']);
+    return $impact;
+}
 
 function covid19ImpactEstimator($data)
 {
@@ -33,6 +45,7 @@ function covid19ImpactEstimator($data)
     $return->severeImpact = getSevereImpact($data);
     $return->impact = getImpact($data1);
     $return->severeImpact = getSevereImpact($data1);
-    return $return;
+    return (Array) $return;
+    return (array) $return;
 }
 
