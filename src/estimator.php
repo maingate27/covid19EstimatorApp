@@ -1,16 +1,18 @@
 <?php
 
-
+$numofDays;
 function getInfectionsByRequestedTime($type, $duration, $currentlyInfected)
 {
     $days = $duration; // assume the type is days
     switch ($type) {
         case 'weeks':
             $days = $duration * 7;
+            $numofDays=$days;
             break;
         case 'months':
             $days = $duration * 7 * 30;
             $days = $duration * 30;
+            $numofDays=$days;
             break;
     }
     $setOfThreeDays = floor($days / 3);
@@ -32,6 +34,9 @@ function getSevereImpact($data)
     $severeImpact['casesForICUByRequestedTime'] = floor(0.05 * $severeImpact['infectionsByRequestedTime']);
 
     $severeImpact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $severeImpact['infectionsByRequestedTime']);
+
+    $severeImpact['dollarsInFlight']=$severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numofDays;
+
     
     return $severeImpact;
 }
@@ -48,6 +53,10 @@ function getImpact($data)
 // challenge 3
 $impact['casesForICUByRequestedTime'] = intval( 0.05 * $impact['infectionsByRequestedTime']);
 $impact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $impact['infectionsByRequestedTime']);
+
+
+$impact['dollarsInFlight']=$impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numofDays;
+
     return $impact;
 }
 
