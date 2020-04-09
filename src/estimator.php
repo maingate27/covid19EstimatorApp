@@ -1,6 +1,6 @@
 <?php
 
-$numofDays;
+$numofDays=0;
 function getInfectionsByRequestedTime($type, $duration, $currentlyInfected)
 {
     $days = $duration; // assume the type is days
