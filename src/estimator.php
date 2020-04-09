@@ -45,7 +45,7 @@ function covid19ImpactEstimator($data)
     $return->severeImpact = getSevereImpact($data);
     $return->impact = getImpact($data1);
     $return->severeImpact = getSevereImpact($data1);
-    return (Array) $return;
-    return (array) $return;
+    return $return;
+   
 }
 
