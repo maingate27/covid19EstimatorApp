@@ -21,6 +21,7 @@ function getInfectionsByRequestedTime($type, $duration, $currentlyInfected)
 
 function getSevereImpact($data)
 {
+    $numberOfDays =0;
     $severeImpact = [];
     $severeImpact['currentlyInfected'] = $data['reportedCases'] * 50;
     $severeImpact['infectionsByRequestedTime'] = getInfectionsByRequestedTime($data['periodType'], $data['timeToElapse'], $severeImpact['currentlyInfected']);
@@ -34,13 +35,25 @@ function getSevereImpact($data)
 
     $severeImpact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $severeImpact['infectionsByRequestedTime']);
 
-    $severeImpact['dollarsInFlight']=$severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $data['timeToElapse'];
+   
+if ($data['periodType'] === 'days') {
+    $numberOfDays = $data['timeToElapse'];
+  } else if ($data['periodType'] === 'weeks') {
+    $numberOfDays = 7 * $data['timeToElapse'];
+  }
+  if ($data['periodType'] === 'months') {
+    $numberOfDays = 30 * $data['timeToElapse'];
+  }
+
+    
+    $severeImpact['dollarsInFlight']=($severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays );
 
     
     return $severeImpact;
 }
 function getImpact($data)
 {
+    $numberOfDays=0;
     $impact = [];
     $impact['currentlyInfected'] = $data['reportedCases'] * 10;
     $impact['infectionsByRequestedTime'] = getInfectionsByRequestedTime($data['periodType'], $data['timeToElapse'], $impact['currentlyInfected']);
@@ -53,8 +66,17 @@ function getImpact($data)
 $impact['casesForICUByRequestedTime'] = intval( 0.05 * $impact['infectionsByRequestedTime']);
 $impact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $impact['infectionsByRequestedTime']);
 
+if ($data['periodType'] === 'days') {
+    $numberOfDays = $data['timeToElapse'];
+  } else if ($data['periodType'] === 'weeks') {
+    $numberOfDays = 7 * $data['timeToElapse'];
+  }
+  if ($data['periodType'] === 'months') {
+    $numberOfDays = 30 * $data['timeToElapse'];
+  }
 
-$impact['dollarsInFlight']=$impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $data['timeToElapse'];
+
+$impact['dollarsInFlight']=($impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays);
 
     return $impact;
 }
