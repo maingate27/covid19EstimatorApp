@@ -31,7 +31,7 @@ function getSevereImpact($data)
     //challenge 3
     $severeImpact['casesForICUByRequestedTime'] = floor(0.05 * $severeImpact['infectionsByRequestedTime']);
 
-    $severeImpact['casesForVentilatorsByRequestedTime'] =floor( 0.02 * $severeImpact['infectionsByRequestedTime']);
+    $severeImpact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $severeImpact['infectionsByRequestedTime']);
     
     return $severeImpact;
 }
@@ -47,7 +47,7 @@ function getImpact($data)
     $impact['hospitalBedsByRequestedTime'] =  intval((0.35 * $data['totalHospitalBeds']) - $impact['severeCasesByRequestedTime']);
 // challenge 3
 $impact['casesForICUByRequestedTime'] = intval( 0.05 * $impact['infectionsByRequestedTime']);
-
+$impact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $impact['infectionsByRequestedTime']);
     return $impact;
 }
 
