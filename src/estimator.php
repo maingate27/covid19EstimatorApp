@@ -1,11 +1,7 @@
 <?php
 
 
-function covid19ImpactEstimator($data)
-{
-    if (!empty($data)) {
-        // set response code - 200 OK
-        http_response_code(200);
+function covid19ImpactEstimator($data){
         $name = $data["region"]["name"];
         $avgAge = $data["region"]["avgAge"];
         $avgDailyIncomeInUSD = $data["region"]["avgDailyIncomeInUSD"];
@@ -59,13 +55,8 @@ function covid19ImpactEstimator($data)
            "impact" => $responseImpact,
                "severeImpact" => $responseSevereImpact
        );
-    }else{
-        // set response code - 400 bad request
-        http_response_code(400);
-        return array("message" => "Data should not be empty");
     }
-}
-print_r( covid19ImpactEstimator($decoded));
+//print_r( covid19ImpactEstimator($decoded));
 function periodConverter($periodType, $timeToElapse)
 {
     $days = 0;
