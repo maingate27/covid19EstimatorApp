@@ -46,7 +46,7 @@ if ($data['periodType'] === 'days') {
   }
 
     
-    $severeImpact['dollarsInFlight']=$severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays;
+    $severeImpact['dollarsInFlight']=floatval($severeImpact['infectionsByRequestedTime']) * floatval($data['region']['avgDailyIncomePopulation'])* floatval($data['region']['avgDailyIncomeInUSD']) * intval($numberOfDays);
 
     
     return $severeImpact;
@@ -76,7 +76,7 @@ if ($data['periodType'] === 'days') {
   }
 
 
-$impact['dollarsInFlight']=$impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays;
+$impact['dollarsInFlight']=floatval($impact['infectionsByRequestedTime']) * floatval($data['region']['avgDailyIncomePopulation'])* floatval($data['region']['avgDailyIncomeInUSD']) * intval($numberOfDays);
 
     return $impact;
 }
