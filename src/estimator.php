@@ -38,7 +38,7 @@ function covid19ImpactEstimator($data)
             "hospitalBedsByRequestedTime" => (int)$impactHospitalBedsByRequestedTime,
             "casesForICUByRequestedTime" => (int)$casesForICUByRequestedTime,
             "casesForVentilatorsByRequestedTime" => (int)$casesForVentilatorsByRequestedTime,
-            "dollarsInFlight" => $dollarsInFlight
+            "dollarsInFlight" => $dollarsInFlight,
             "dollarsInFlight" => (int)$dollarsInFlight
         );
 
@@ -49,7 +49,7 @@ function covid19ImpactEstimator($data)
             "hospitalBedsByRequestedTime" => (int)$severeHospitalBedsByRequestedTime,
             "casesForICUByRequestedTime" => (int)$severeCasesForICUByRequestedTime,
             "casesForVentilatorsByRequestedTime" => (int)$severeCasesForVentilatorsByRequestedTime,
-            "dollarsInFlight" => $severeDollarsInFlight
+            "dollarsInFlight" => $severeDollarsInFlight,
             "dollarsInFlight" => (int)$severeDollarsInFlight
         );
 
