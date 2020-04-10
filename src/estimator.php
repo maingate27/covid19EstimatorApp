@@ -108,7 +108,7 @@ function dollarsInFlight($infectionsByRequestedTime,$periodType, $timeToElapse,
     $days = floor(periodConverter($periodType, $timeToElapse));
 
     $dollars =  $infectionsByRequestedTime * $avgDailyIncomeInUSD * $avgDailyIncomePopulation * $days;
-    return round($dollars, 1);
+    return round($dollars, 2);
     $dollars =  ($infectionsByRequestedTime * $avgDailyIncomeInUSD * $avgDailyIncomePopulation) / $days;
     return floor($dollars);
 } 
