@@ -46,7 +46,7 @@ if ($data['periodType'] === 'days') {
   }
 
     
-    $severeImpact['dollarsInFlight']=number_format(($severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays ), 2);
+    $severeImpact['dollarsInFlight']=round(($severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays ), 2);
 
     
     return $severeImpact;
@@ -69,14 +69,14 @@ $impact['casesForVentilatorsByRequestedTime'] =intval( 0.02 * $impact['infection
 if ($data['periodType'] === 'days') {
     $numberOfDays = $data['timeToElapse'];
   } else if ($data['periodType'] === 'weeks') {
-    $numberOfDays = 7 ;
+    $numberOfDays =  7 * $data['timeToElapse'];
   }
   if ($data['periodType'] === 'months') {
-    $numberOfDays = 30 ;
+    $numberOfDays = 30 * $data['timeToElapse'] ;
   }
 
 
-$impact['dollarsInFlight']=number_format(($impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays), 2);
+$impact['dollarsInFlight']=round(($impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays), 2);
 
     return $impact;
 }
