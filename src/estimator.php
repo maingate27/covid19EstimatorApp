@@ -46,7 +46,7 @@ if ($data['periodType'] === 'days') {
   }
 
     
-    $severeImpact['dollarsInFlight']=round(($severeImpact['infectionsByRequestedTime'] * $data['avgDailyIncomePopulation']* $data['avgDailyIncomeInUSD'] * $numberOfDays ), 2);
+    $severeImpact['dollarsInFlight']=$severeImpact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays;
 
     
     return $severeImpact;
@@ -76,7 +76,7 @@ if ($data['periodType'] === 'days') {
   }
 
 
-$impact['dollarsInFlight']=round(($impact['infectionsByRequestedTime'] * $data['avgDailyIncomePopulation']* $data['avgDailyIncomeInUSD'] * $numberOfDays), 2);
+$impact['dollarsInFlight']=$impact['infectionsByRequestedTime'] * $data['region']['avgDailyIncomePopulation']* $data['region']['avgDailyIncomeInUSD'] * $numberOfDays;
 
     return $impact;
 }
